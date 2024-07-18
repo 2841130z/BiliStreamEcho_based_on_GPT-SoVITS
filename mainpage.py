@@ -97,6 +97,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.SESSDATA_line = self.findChild(QtWidgets.QLineEdit, 'lineEdit_10')
         self.bili_jct_line = self.findChild(QtWidgets.QLineEdit, 'lineEdit_11')
         self.buvid3_line = self.findChild(QtWidgets.QLineEdit, 'lineEdit_12')
+        self.pushButton_9.clicked.connect(self.test_TTS)
 
         # model page setting
         self.populate_comboBox_6()
@@ -235,6 +236,46 @@ class MainApp(QMainWindow, Ui_MainWindow):
             self.start_server()
         else:
             self.stop_server()
+
+    def test_TTS(self):
+        # 测试 process_danmaku
+        danmaku_event = {
+            'content': '测试弹幕内容',
+            'user_id': 12345,
+            'username': '测试用户'
+        }
+        self.bilibili_api.process_danmaku(danmaku_event, config.parameters)
+
+        # 测试 process_gift
+        gift_event = {
+            'gift_info': {
+                'username': '测试用户',
+                'gift_name': '辣条',
+                'gift_num': 5
+            }
+        }
+        self.bilibili_api.process_gift(gift_event, config.parameters)
+
+        # 测试 process_super_chat
+        super_chat_event = {
+            'super_chat_info': {
+                'username': '测试用户',
+                'message': '这是一个超级留言',
+                'amount': 100
+            }
+        }
+        self.bilibili_api.process_super_chat(super_chat_event, config.parameters)
+
+        # 测试 process_guard_buy
+        guard_buy_event = {
+            'guard_info': {
+                'username': '测试用户',
+                'guard_level': 3,
+                'num': 1,
+                'gift_name': '舰长'
+            }
+        }
+        self.bilibili_api.process_guard_buy(guard_buy_event, config.parameters)
 
     def start_server(self):
         self.pushButton.setText("Starting...")

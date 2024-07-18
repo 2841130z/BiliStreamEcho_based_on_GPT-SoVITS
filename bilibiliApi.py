@@ -13,6 +13,7 @@ from typing import Dict, Any
 import torch
 from io import BytesIO
 import soundfile as sf
+import concurrent.futures
 
 logging.basicConfig(level=logging.INFO)
 from api import handle
@@ -197,18 +198,42 @@ class BilibiliApi(QObject):
             logging.info("Super Chat信息放入队列")
 
         elif event_type == 'guard_buy':
-            info = event['data']
-            guard_levels = {1: '舰长', 2: '提督', 3: '总督'}
-            self.queue.put({
-                'type': 'guard_buy',
-                'guard_info': {
-                    'username': info['username'],
-                    'guard_level': info['guard_level'],
-                    'num': info['num']
-                },
-                'guard_level_name': guard_levels.get(info['guard_level'], '未知等级')
-            })
-            logging.info("上舰信息放入队列")
+            info = event.get('data', {})
+
+            # 直接使用 info 变量，因为它已经是一个字典
+            user_data = info["data"]
+            print(user_data)
+
+            try:
+                # 确保正确访问嵌套字典中的字段
+                username = user_data["username"]
+                guard_level = user_data["guard_level"]
+                num = user_data["num"]
+                gift_name = user_data["gift_name"]
+
+                # 继续处理其他字段...
+                logging.info(f"用户名: {username}, 守护等级: {guard_level}, 数量: {num}, 礼物名称: {gift_name}")
+
+            except KeyError as e:
+                logging.error(f"GUARD_BUY 事件信息缺失必要字段: {e}")
+
+            # 打印接收到的数据，以便调试
+            logging.debug(f"接收到的info数据: {info}")
+
+            if username:
+                print(username, num, gift_name)  # 打印字段值以调试
+                self.queue.put({
+                    'type': 'guard_buy',
+                    'guard_info': {
+                        'username': username,
+                        'guard_level': guard_level,
+                        'num': num,
+                        'gift_name': gift_name
+                    }
+                })
+                logging.info("上舰信息放入队列")
+            else:
+                logging.error(f"GUARD_BUY 事件信息缺失必要字段")
 
     def consumer(self):
         while True:
@@ -263,79 +288,52 @@ class BilibiliApi(QObject):
 
     def process_guard_buy(self, event, format_par):
         guard_info = event['guard_info']
-        guard_level_name = event['guard_level_name']
+        #guard_level_name = event['guard_level_name']
         logging.info(f"处理上舰: {guard_info}")
         if "member_format" in format_par:
             format_str = format_par["member_format"]
             text = re.sub(r'\$USER', guard_info['username'], format_str)
             text = re.sub(r'\$COUNT', str(guard_info['num']), text)
-            text = re.sub(r'\$MEMBER', guard_level_name, text)
+            text = re.sub(r'\$MEMBER', guard_info["gift_name"], text)
             text = replace_punctuation_with_spaces(text)
         self.generate_audio(text, format_par)
 
+
     def generate_audio(self, text, format_par):
-        logging.info("开始语音生成")
-        with torch.no_grad():
-            gen = get_tts_wav(
-                format_par["refer_wav_path"], format_par["prompt_text"], format_par["prompt_language"], text,
-                format_par["text_language"], format_par["how_to_cut"], format_par["top_k"], format_par["top_p"],
-                format_par["temperature"]
-            )
-            sampling_rate, audio_data = next(gen)
+        def _generate_audio_task():
+            logging.info("开始语音生成")
+            with torch.no_grad():
+                gen = get_tts_wav(
+                    format_par["refer_wav_path"], format_par["prompt_text"], format_par["prompt_language"], text,
+                    format_par["text_language"], format_par["how_to_cut"], format_par["top_k"], format_par["top_p"],
+                    format_par["temperature"]
+                )
+                sampling_rate, audio_data = next(gen)
 
-        wav = BytesIO()
-        sf.write(wav, audio_data, sampling_rate, format="wav")
-        wav_file_path = "temporary_audio.wav"
-        with open(wav_file_path, 'wb') as f:
-            f.write(wav.getvalue())
-        play_audio(wav_file_path)
-        torch.cuda.empty_cache()
+            wav = BytesIO()
+            sf.write(wav, audio_data, sampling_rate, format="wav")
+            wav_file_path = "temporary_audio.wav"
+            with open(wav_file_path, 'wb') as f:
+                f.write(wav.getvalue())
+            torch.cuda.empty_cache()
+            # if device == "mps":
+            # print('executed torch.mps.empty_cache()')
+            # torch.mps.empty_cache()
 
+        # 使用 ThreadPoolExecutor 来设定超时时间
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future = executor.submit(_generate_audio_task)
 
-
-    def consumer_old(self):
-        while True:
-            if not self.queue.empty():
-                content, user_id, username = self.queue.get()
-                print("开始语音生成")
-                print(f"text: {content}")
-                print(f"user_ID: {user_id}")
-                print(f"username: {username}")
-                # 替换格式中的变量
-                format_par = config.parameters
-                print(f"format_par:{format_par}")
-                if "Comment_format" in format_par:
-                    format_str = format_par["Comment_format"]
-                    text = re.sub(r'\$USER', username, format_str)
-                    text = re.sub(r'\$TEXT', content, text)
-                    #删除标点符号
-                    text=replace_punctuation_with_spaces(text)
-                # mark
-                with torch.no_grad():
-                    gen = get_tts_wav(
-                        format_par["refer_wav_path"], format_par["prompt_text"], format_par["prompt_language"], text,
-                        format_par["text_language"], format_par["how_to_cut"], format_par["top_k"], format_par["top_p"],
-                        format_par["temperature"]
-                    )
-                    sampling_rate, audio_data = next(gen)
-
-                # 保存WAV文件
-                wav = BytesIO()
-                sf.write(wav, audio_data, sampling_rate, format="wav")
-                wav_file_path = "temporary_audio.wav"  # 临时文件路径
-                with open(wav_file_path, 'wb') as f:
-                    f.write(wav.getvalue())
-
-                #handle("", "", "", text, "")
-                # 初始化 pygame
+            try:
+                future.result(timeout=15)  # 设定超时时间为15秒
                 play_audio("temporary_audio.wav")
-                self.queue.task_done()
-                # 清理GPU缓存
+            except concurrent.futures.TimeoutError:
                 torch.cuda.empty_cache()
-                #if device == "mps":
-                    #print('executed torch.mps.empty_cache()')
-                    #torch.mps.empty_cache()
-            time.sleep(0.5)  # 控制处理速度
+                # if device == "mps":
+                # print('executed torch.mps.empty_cache()')
+                # torch.mps.empty_cache()
+                logging.error("语音生成任务超时，被取消")
+
 
     async def async_stop_connection(self):
         if self.room:
@@ -347,6 +345,10 @@ class BilibiliApi(QObject):
 
     def stop_connection(self):
         try:
+            # 清空队列
+            self.queue.queue.clear()
+            logging.info("Queue cleared")
+
             if self.room and self.loop and self.thread:
                 future = asyncio.run_coroutine_threadsafe(self.async_stop_connection(), self.loop)
                 future.result()  # 等待协程完成
@@ -365,9 +367,7 @@ class BilibiliApi(QObject):
                 self.thread.join()  # 等待线程结束
                 logging.info("Thread joined")
 
-                # 清空队列
-                self.queue.queue.clear()
-                logging.info("Queue cleared")
+
         except Exception as e:
             logging.error(f"断开连接时发生错误: {e}")
 
