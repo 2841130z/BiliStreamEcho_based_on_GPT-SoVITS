@@ -284,7 +284,7 @@
                  <item>
                   <widget class="QLabel" name="label">
                    <property name="toolTip">
-                    <string>toolTip test</string>
+                    <string/>
                    </property>
                    <property name="text">
                     <string>   top_k</string>
@@ -704,7 +704,7 @@
              <item>
               <widget class="QLabel" name="label_23">
                <property name="text">
-                <string>                       中文教程</string>
+                <string>                   Chinese Tutorial</string>
                </property>
               </widget>
              </item>

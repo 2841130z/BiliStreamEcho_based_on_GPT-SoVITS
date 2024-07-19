@@ -6,7 +6,7 @@ import asyncio
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPlainTextEdit
-from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot,QStringListModel,QObject
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot,QStringListModel,QObject,QTranslator
 from frontpage import Ui_MainWindow
 from tools.i18n.i18n import I18nAuto
 from bilibiliApi import BilibiliApi
@@ -24,6 +24,16 @@ list_language = {
     i18n("Chinese and English"): "中英混合",
     i18n("Japanese and English"): "日英混合",
     i18n("Multilingual"): "多语种混合",
+}
+
+save_language={
+    "中文":"Chinese",
+    "英文":"English",
+    "日文":"Japanese",
+    "中英混合":"Chinese and English",
+    "日英混合":"Japanese and English",
+    "多语种混合":"Multilingual",
+
 }
 
 #new
@@ -60,6 +70,8 @@ class MainApp(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.server_thread = None
+        self.translator = QTranslator()
+        #self.current_language = ""
 
         # Find the QPlainTextEdit widget
         self.console_output = self.findChild(QPlainTextEdit, 'plainTextEdit')
@@ -123,6 +135,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.output_language_combo = self.findChild(QtWidgets.QComboBox, 'comboBox_7')
 
         #comment page setting
+        self.checkbox = self.findChild(QtWidgets.QCheckBox, 'checkBox')
         self.list_view=self.findChild(QtWidgets.QListView, 'listView')
         self.block_words_line = self.findChild(QtWidgets.QLineEdit, 'lineEdit')
         self.pushButton_6.clicked.connect(self.add_block_word)
@@ -131,6 +144,9 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.SC_format_line = self.findChild(QtWidgets.QLineEdit, 'lineEdit_7')
         self.gift_format_line = self.findChild(QtWidgets.QLineEdit, 'lineEdit_8')
         self.member_format_line = self.findChild(QtWidgets.QLineEdit, 'lineEdit_9')
+
+        #About page setting
+        self.system_language_combo=self.findChild(QtWidgets.QComboBox, 'comboBox_3')
         # 创建字符串列表模型
         self.model = QStringListModel()
         self.list_view.setModel(self.model)
@@ -143,9 +159,35 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.bilibili_api.connection_established.connect(self.on_server_started)
         self.bilibili_api.connection_closed.connect(self.on_server_stopped)
 
+    #system language
+    def change_language(self, language):
+        try:
+            if language == "English" or language == "英文":
+                qm_file ="translations/QTproject_en_GB.qm"
+            elif language == "中文" or language == "Chinese":
+                qm_file ="translations/QTproject_zh_CN.qm"
+            else:
+                print(f"Unsupported language: {language}")
+                return
+
+            if not os.path.exists(qm_file):
+                print(f"Translation file not found: {qm_file}")
+                return
+
+            if not self.translator.load(qm_file):
+                print(f"Failed to load translation file: {qm_file}")
+                return
+
+            app.installTranslator(self.translator)
+            self.retranslateUi(self)  # 调用自动生成的retranslateUi方法更新UI
+        except Exception as e:
+            print(f"Error changing language: {e}")
+
+
     #apply button def
     def save_parameters(self):
         #global parameters_changed
+        self.change_language(self.system_language_combo.currentText())
         parameters = {
             #homepage
             "ID_code":self.ID_code_line.text(),
@@ -168,7 +210,10 @@ class MainApp(QMainWindow, Ui_MainWindow):
             "SC_format":self.SC_format_line.text(),
             "gift_format":self.gift_format_line.text(),
             "member_format":self.member_format_line.text(),
+            "Punctuation_filter":self.checkbox.isChecked(),
             "Block_Words": self.block_words,
+            #aboutpage
+            "System_language":self.system_language_combo.currentText(),
         }
         with open('parameters.json', 'w') as f:
             json.dump(parameters, f, indent=4)
@@ -184,6 +229,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
         formatted_parameters = "\n".join([f"{key}: {value}" for key, value in parameters.items() if key not in hidden_keys])
 
         self.show_message("Apply Successful", f"Parameters saved successfully:\n\n{formatted_parameters}")
+
 
     def load_parameters(self):
         if os.path.exists('parameters.json'):
@@ -210,6 +256,12 @@ class MainApp(QMainWindow, Ui_MainWindow):
             self.SC_format_line.setText(parameters.get("SC_format", ""))
             self.gift_format_line.setText(parameters.get("gift_format", ""))
             self.member_format_line.setText(parameters.get("member_format", ""))
+            self.checkbox.setChecked(parameters.get("Punctuation_filter",""))
+            #about
+            self.system_language_combo.setCurrentText(parameters.get("System_language",""))
+            self.change_language(parameters["System_language"])
+
+
             # 检查 Block_Words 是否存在且不为空
             block_words = parameters.get("Block_Words")
             if block_words:  # 这将检查 block_words 是否为 None 或空列表
@@ -398,7 +450,9 @@ class MainApp(QMainWindow, Ui_MainWindow):
         # 更新模型
         self.model.setStringList(self.block_words)
 
+
 if __name__ == "__main__":
+    global app
     app = QApplication(sys.argv)
     mainWindow = MainApp()
     mainWindow.show()

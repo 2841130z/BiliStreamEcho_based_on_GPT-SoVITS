@@ -48,6 +48,7 @@ def replace_punctuation_with_spaces(text):
     pattern = r'[^\w\s](?=.{2,}$)'
     # 使用re.sub()方法，将所有匹配的标点符号替换为空格
     cleaned_text = re.sub(pattern, '', text)
+    print("replace_punctuation_with_spaces")
     return cleaned_text
 
 def replace_all_punctuation(text):
@@ -262,7 +263,8 @@ class BilibiliApi(QObject):
             format_str = format_par["Comment_format"]
             text = re.sub(r'\$USER', username, format_str)
             text = re.sub(r'\$TEXT', content, text)
-            #text = replace_punctuation_with_spaces(text)
+            if format_par["Punctuation_filter"]:
+                text = replace_punctuation_with_spaces(text)
         self.generate_audio(text, format_par)
 
     def process_gift(self, event, format_par):
@@ -273,7 +275,8 @@ class BilibiliApi(QObject):
             text = re.sub(r'\$USER', gift_info['username'], format_str)
             text = re.sub(r'\$COUNT', str(gift_info['gift_num']), text)
             text = re.sub(r'\$GIFT', gift_info['gift_name'], text)
-            text = replace_punctuation_with_spaces(text)
+            if format_par["Punctuation_filter"]:
+                text = replace_punctuation_with_spaces(text)
         self.generate_audio(text, format_par)
 
     def process_super_chat(self, event, format_par):
@@ -283,7 +286,8 @@ class BilibiliApi(QObject):
             format_str = format_par["SC_format"]
             text = re.sub(r'\$USER', super_chat_info['username'], format_str)
             text = re.sub(r'\$TEXT', super_chat_info['message'], text)
-            text = replace_punctuation_with_spaces(text)
+            if format_par["Punctuation_filter"]:
+                text = replace_punctuation_with_spaces(text)
         self.generate_audio(text, format_par)
 
     def process_guard_buy(self, event, format_par):
@@ -295,7 +299,8 @@ class BilibiliApi(QObject):
             text = re.sub(r'\$USER', guard_info['username'], format_str)
             text = re.sub(r'\$COUNT', str(guard_info['num']), text)
             text = re.sub(r'\$MEMBER', guard_info["gift_name"], text)
-            text = replace_punctuation_with_spaces(text)
+            if format_par["Punctuation_filter"]:
+                text = replace_punctuation_with_spaces(text)
         self.generate_audio(text, format_par)
 
 
