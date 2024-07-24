@@ -44,7 +44,7 @@ def contains_block_words(content, block_words):
         for word in block_words:
             trie.insert(word)
         config.parameters_changed = False
-        print("刷新屏蔽词")
+        print("Refresh blocked words")
     # 使用 jieba 进行分词
     words = jieba.lcut(content)
     # 合并分词结果
@@ -59,17 +59,17 @@ if __name__ == "__main__":
 
     # 检查是否包含屏蔽词
     if contains_block_words(content, block_words):
-        print("句子包含屏蔽词")
+        print("The sentence contains blocked words")
     else:
-        print("句子不包含屏蔽词")
+        print("The sentence does not contain blocked words")
 
     content = '这是一个包含blockword的句子。'
 
     # 检查是否包含屏蔽词
     if contains_block_words(content, block_words):
-        print("句子包含屏蔽词")
+        print("The sentence contains blocked words")
     else:
-        print("句子不包含屏蔽词")
+        print("The sentence does not contain blocked words")
 
     config.parameters_changed = True
     block_words = ['屏蔽词', '屏蔽词2', 'badword']
@@ -77,9 +77,9 @@ if __name__ == "__main__":
 
     # 检查是否包含屏蔽词
     if contains_block_words(content, block_words):
-        print("句子包含屏蔽词")
+        print("The sentence contains blocked words")
     else:
-        print("句子不包含屏蔽词")
+        print("The sentence does not contain blocked words")
 
     config.parameters_changed = True
     block_words = ['屏蔽词', '屏蔽词2', 'badword', 'blockword']
@@ -87,6 +87,6 @@ if __name__ == "__main__":
 
     # 检查是否包含屏蔽词
     if contains_block_words(content, block_words):
-        print("句子包含屏蔽词")
+        print("The sentence contains blocked words")
     else:
-        print("句子不包含屏蔽词")
+        print("The sentence does not contain blocked words")

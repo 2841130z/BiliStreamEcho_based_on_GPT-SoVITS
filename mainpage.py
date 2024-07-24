@@ -290,44 +290,111 @@ class MainApp(QMainWindow, Ui_MainWindow):
             self.stop_server()
 
     def test_TTS(self):
-        # 测试 process_danmaku
-        danmaku_event = {
-            'content': '测试弹幕内容',
-            'user_id': 12345,
-            'username': '测试用户'
-        }
-        self.bilibili_api.process_danmaku(danmaku_event, config.parameters)
+        try:
+            if config.parameters["System_language"]=="Chinese":
+                print("中文测试")
+                danmaku_event = {
+                    'data': {
+                        'info': [
+                            [], '测试弹幕内容', [12345, '测试用户']
+                        ]
+                    }
+                }
+                self.bilibili_api.handle_event(danmaku_event, 'danmaku')
+                logging.info("处理测试弹幕事件完成")
 
-        # 测试 process_gift
-        gift_event = {
-            'gift_info': {
-                'username': '测试用户',
-                'gift_name': '辣条',
-                'gift_num': 5
-            }
-        }
-        self.bilibili_api.process_gift(gift_event, config.parameters)
+                gift_event = {
+                    'data': {
+                        'data': {
+                            'uname': '测试用户',
+                            'giftName': '辣条',
+                            'num': 5
+                        }
+                    }
+                }
+                self.bilibili_api.handle_event(gift_event, 'gift')
+                logging.info("处理测试礼物事件完成")
 
-        # 测试 process_super_chat
-        super_chat_event = {
-            'super_chat_info': {
-                'username': '测试用户',
-                'message': '这是一个超级留言',
-                'amount': 100
-            }
-        }
-        self.bilibili_api.process_super_chat(super_chat_event, config.parameters)
+                super_chat_event = {
+                    'data': {
+                        'data': {
+                            'user_info': {
+                                'uname': '测试用户'
+                            },
+                            'message': '这是一个超级留言',
+                            'price': 100
+                        }
+                    }
+                }
+                self.bilibili_api.handle_event(super_chat_event, 'super_chat')
+                logging.info("处理测试超级留言事件完成")
 
-        # 测试 process_guard_buy
-        guard_buy_event = {
-            'guard_info': {
-                'username': '测试用户',
-                'guard_level': 3,
-                'num': 1,
-                'gift_name': '舰长'
-            }
-        }
-        self.bilibili_api.process_guard_buy(guard_buy_event, config.parameters)
+                guard_buy_event = {
+                    'data': {
+                        'data': {
+                            'username': '测试用户',
+                            'guard_level': 3,
+                            'num': 1,
+                            'gift_name': '舰长'
+                        }
+                    }
+                }
+                self.bilibili_api.handle_event(guard_buy_event, 'guard_buy')
+                logging.info("处理测试上舰事件完成")
+            elif config.parameters["System_language"]=="English":
+                print('English Test')
+                danmaku_event = {
+                    'data': {
+                        'info': [
+                            [], 'This is a comment inference', [12345, 'Test user']
+                        ]
+                    }
+                }
+                self.bilibili_api.handle_event(danmaku_event, 'danmaku')
+                logging.info("Test Comment Send")
+
+                gift_event = {
+                    'data': {
+                        'data': {
+                            'uname': 'Test user',
+                            'giftName': 'Gift name',
+                            'num': 5
+                        }
+                    }
+                }
+                self.bilibili_api.handle_event(gift_event, 'gift')
+                logging.info("Test Gift Inference")
+
+                super_chat_event = {
+                    'data': {
+                        'data': {
+                            'user_info': {
+                                'uname': 'Test User'
+                            },
+                            'message': 'This is a super chat',
+                            'price': 100
+                        }
+                    }
+                }
+                self.bilibili_api.handle_event(super_chat_event, 'super_chat')
+                logging.info("SC Send")
+
+                guard_buy_event = {
+                    'data': {
+                        'data': {
+                            'username': 'Test user',
+                            'guard_level': 3,
+                            'num': 1,
+                            'gift_name': 'fans club'
+                        }
+                    }
+                }
+                self.bilibili_api.handle_event(guard_buy_event, 'guard_buy')
+                logging.info("member test")
+
+
+        except Exception as e:
+            logging.error(f"ERROR: {e}")
 
     def start_server(self):
         self.pushButton.setText("Starting...")

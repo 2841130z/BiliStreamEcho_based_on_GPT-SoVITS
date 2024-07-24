@@ -29,7 +29,7 @@ def play_audio(file_path):
     try:
         pygame.mixer.music.load(file_path)
     except pygame.error as e:
-        print(f"无法加载音频文件: {e}")
+        print(f"Unable to load audio file: {e}")
         return
 
     # 播放音频文件
@@ -127,6 +127,7 @@ class BilibiliApi(QObject):
             logging.info("Room created and attempting to connect")
             self.connection_established.emit()
 
+
             @self.room.on('DANMU_MSG')
             async def on_danmaku(event):
                 self.handle_event(event, 'danmaku')
@@ -172,7 +173,7 @@ class BilibiliApi(QObject):
                         'user_id': user_id,
                         'username': username
                     })
-                    logging.info("弹幕放入队列")
+                    logging.info("Comment is placed in the queue")
 
         elif event_type == 'gift':
             info = event['data']['data']
@@ -184,7 +185,7 @@ class BilibiliApi(QObject):
                     'gift_num': info['num']
                 }
             })
-            logging.info("礼物信息放入队列")
+            logging.info("Gift information is placed in the queue")
 
         elif event_type == 'super_chat':
             info = event['data']['data']
@@ -196,7 +197,7 @@ class BilibiliApi(QObject):
                     'amount': info['price']
                 }
             })
-            logging.info("Super Chat信息放入队列")
+            logging.info("Super Chat message is placed in the queue")
 
         elif event_type == 'guard_buy':
             info = event.get('data', {})
@@ -213,13 +214,13 @@ class BilibiliApi(QObject):
                 gift_name = user_data["gift_name"]
 
                 # 继续处理其他字段...
-                logging.info(f"用户名: {username}, 守护等级: {guard_level}, 数量: {num}, 礼物名称: {gift_name}")
+                #logging.info(f"username: {username}, guard level: {guard_level}, number: {num}, gift name: {gift_name}")
 
             except KeyError as e:
-                logging.error(f"GUARD_BUY 事件信息缺失必要字段: {e}")
+                logging.error(f"GUARD_BUY ERROR: {e}")
 
             # 打印接收到的数据，以便调试
-            logging.debug(f"接收到的info数据: {info}")
+            #logging.debug(f"接收到的info数据: {info}")
 
             if username:
                 print(username, num, gift_name)  # 打印字段值以调试
@@ -232,9 +233,9 @@ class BilibiliApi(QObject):
                         'gift_name': gift_name
                     }
                 })
-                logging.info("上舰信息放入队列")
+                logging.info("Put member information into queue")
             else:
-                logging.error(f"GUARD_BUY 事件信息缺失必要字段")
+                logging.error(f"GUARD_BUY ERROR")
 
     def consumer(self):
         while True:
@@ -258,7 +259,7 @@ class BilibiliApi(QObject):
         content = event['content']
         user_id = event['user_id']
         username = event['username']
-        logging.info(f"处理弹幕: {content}")
+        logging.info(f"Processing comment: {content}")
         if "Comment_format" in format_par:
             format_str = format_par["Comment_format"]
             text = re.sub(r'\$USER', username, format_str)
@@ -269,7 +270,7 @@ class BilibiliApi(QObject):
 
     def process_gift(self, event, format_par):
         gift_info = event['gift_info']
-        logging.info(f"处理礼物: {gift_info}")
+        logging.info(f"Handling Gifts: {gift_info}")
         if "gift_format" in format_par:
             format_str = format_par["gift_format"]
             text = re.sub(r'\$USER', gift_info['username'], format_str)
@@ -281,7 +282,7 @@ class BilibiliApi(QObject):
 
     def process_super_chat(self, event, format_par):
         super_chat_info = event['super_chat_info']
-        logging.info(f"处理Super Chat: {super_chat_info}")
+        logging.info(f"Handling Super Chat: {super_chat_info}")
         if "SC_format" in format_par:
             format_str = format_par["SC_format"]
             text = re.sub(r'\$USER', super_chat_info['username'], format_str)
@@ -293,7 +294,7 @@ class BilibiliApi(QObject):
     def process_guard_buy(self, event, format_par):
         guard_info = event['guard_info']
         #guard_level_name = event['guard_level_name']
-        logging.info(f"处理上舰: {guard_info}")
+        logging.info(f"Processing member joining: {guard_info}")
         if "member_format" in format_par:
             format_str = format_par["member_format"]
             text = re.sub(r'\$USER', guard_info['username'], format_str)
@@ -306,7 +307,7 @@ class BilibiliApi(QObject):
 
     def generate_audio(self, text, format_par):
         def _generate_audio_task():
-            logging.info("开始语音生成")
+            logging.info("Start TTS")
             with torch.no_grad():
                 gen = get_tts_wav(
                     format_par["refer_wav_path"], format_par["prompt_text"], format_par["prompt_language"], text,
@@ -337,7 +338,7 @@ class BilibiliApi(QObject):
                 # if device == "mps":
                 # print('executed torch.mps.empty_cache()')
                 # torch.mps.empty_cache()
-                logging.error("语音生成任务超时，被取消")
+                logging.error("The TTS task timed out and was canceled.")
 
 
     async def async_stop_connection(self):
@@ -374,7 +375,7 @@ class BilibiliApi(QObject):
 
 
         except Exception as e:
-            logging.error(f"断开连接时发生错误: {e}")
+            logging.error(f"ERROR: {e}")
 
 
 
