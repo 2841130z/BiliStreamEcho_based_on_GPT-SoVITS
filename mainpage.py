@@ -187,7 +187,9 @@ class MainApp(QMainWindow, Ui_MainWindow):
     #apply button def
     def save_parameters(self):
         #global parameters_changed
+        serverstate=self.pushButton.text()
         self.change_language(self.system_language_combo.currentText())
+        self.pushButton.setText(serverstate)
         parameters = {
             #homepage
             "ID_code":self.ID_code_line.text(),
