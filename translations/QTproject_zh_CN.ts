@@ -4,255 +4,254 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="frontdesign.ui" line="32"/>
+        <location filename="frontpage.py" line="399"/>
         <source>BiliStreamEcho</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="50"/>
+        <location filename="frontpage.py" line="400"/>
         <source>Home</source>
         <translation type="unfinished">主页</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="57"/>
+        <location filename="frontpage.py" line="401"/>
         <source>Model</source>
         <translation type="unfinished">TTS模型</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="64"/>
+        <location filename="frontpage.py" line="402"/>
         <source>Comment</source>
         <translation type="unfinished">语音格式</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="71"/>
+        <location filename="frontpage.py" line="403"/>
         <source>About</source>
         <translation type="unfinished">关于</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="91"/>
+        <location filename="frontpage.py" line="404"/>
         <source>  ID code</source>
         <translation type="unfinished">直播间码</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="101"/>
+        <location filename="frontpage.py" line="405"/>
         <source>Start Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="116"/>
+        <location filename="frontpage.py" line="406"/>
         <source> SESSDATA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="134"/>
+        <location filename="frontpage.py" line="407"/>
         <source> bili_jct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="152"/>
+        <location filename="frontpage.py" line="408"/>
         <source>  buvid3 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="170"/>
+        <location filename="frontpage.py" line="409"/>
         <source>Test TTS</source>
         <translation type="unfinished">测试TTS</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="177"/>
-        <location filename="frontdesign.ui" line="548"/>
-        <location filename="frontdesign.ui" line="660"/>
-        <location filename="frontdesign.ui" line="696"/>
+        <location filename="frontpage.py" line="455"/>
         <source>Apply</source>
         <translation type="unfinished">保存设置</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="209"/>
+        <location filename="frontpage.py" line="411"/>
         <source>Refresh</source>
         <translation type="unfinished">刷新模型路径</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="216"/>
+        <location filename="frontpage.py" line="412"/>
         <source>File Path</source>
         <translation type="unfinished">打开文件路径</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="225"/>
+        <location filename="frontpage.py" line="413"/>
         <source>       GPT_Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="235"/>
+        <location filename="frontpage.py" line="414"/>
         <source>        SoVITS_Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="249"/>
+        <location filename="frontpage.py" line="415"/>
         <source>   Reference Audio  </source>
         <translation type="unfinished">     参考音频路径  </translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="266"/>
+        <location filename="frontpage.py" line="416"/>
         <source>   Audio Subtitle   </source>
         <translation type="unfinished">     参考音频字幕  </translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="290"/>
+        <location filename="frontpage.py" line="417"/>
         <source>   top_k</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="297"/>
+        <location filename="frontpage.py" line="418"/>
         <source>   top_p</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="304"/>
+        <location filename="frontpage.py" line="419"/>
         <source>temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="417"/>
+        <location filename="frontpage.py" line="420"/>
         <source> Reference_Language </source>
         <translation type="unfinished"> 设置参考音频语言 </translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="424"/>
+        <location filename="frontpage.py" line="421"/>
         <source> Cutting_Method </source>
         <translation type="unfinished"> 输出文本切分方法 </translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="431"/>
+        <location filename="frontpage.py" line="422"/>
         <source> Output_Language </source>
         <translation type="unfinished"> 文本推理输出语言 </translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="443"/>
-        <location filename="frontdesign.ui" line="511"/>
-        <location filename="frontdesign.ui" line="688"/>
+        <location filename="frontpage.py" line="454"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="448"/>
-        <location filename="frontdesign.ui" line="516"/>
-        <location filename="frontdesign.ui" line="683"/>
+        <location filename="frontpage.py" line="453"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="453"/>
-        <location filename="frontdesign.ui" line="521"/>
+        <location filename="frontpage.py" line="437"/>
         <source>Japanese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="458"/>
-        <location filename="frontdesign.ui" line="526"/>
+        <location filename="frontpage.py" line="438"/>
         <source>Chinese and English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="463"/>
-        <location filename="frontdesign.ui" line="531"/>
+        <location filename="frontpage.py" line="439"/>
         <source>Japanese and English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="468"/>
-        <location filename="frontdesign.ui" line="536"/>
+        <location filename="frontpage.py" line="440"/>
         <source>Multilingual</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="477"/>
+        <location filename="frontpage.py" line="429"/>
         <source>No slice</source>
         <translation type="unfinished">No slice</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="482"/>
+        <location filename="frontpage.py" line="430"/>
         <source>Slice once every 4 sentences</source>
         <translation type="unfinished">凑四句一切</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="487"/>
+        <location filename="frontpage.py" line="431"/>
         <source>Cut per 50 characters</source>
         <translation type="unfinished">凑50字一切</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="492"/>
+        <location filename="frontpage.py" line="432"/>
         <source>Slice by Chinese punct</source>
         <translation type="unfinished">按中文句号。切</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="497"/>
+        <location filename="frontpage.py" line="433"/>
         <source>Slice by English punct</source>
         <translation type="unfinished">按英文句号.切</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="502"/>
+        <location filename="frontpage.py" line="434"/>
         <source>Slice by every punct</source>
         <translation type="unfinished">按标点符号切</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="565"/>
+        <location filename="frontpage.py" line="442"/>
         <source>When receiving a comment:</source>
         <translation type="unfinished">当收到弹幕时：</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="575"/>
+        <location filename="frontpage.py" line="443"/>
         <source>When receiving a super chat:</source>
         <translation type="unfinished">当收到醒目评论时：</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="585"/>
+        <location filename="frontpage.py" line="444"/>
         <source>When receiving a gift:</source>
         <translation type="unfinished">当收到礼物时：</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="595"/>
+        <location filename="frontpage.py" line="445"/>
         <source>When a user joins as a member:</source>
         <translation type="unfinished">当有观众加入大航海时：</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="611"/>
+        <location filename="frontpage.py" line="446"/>
         <source>Block Words</source>
         <translation type="unfinished">屏蔽词</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="621"/>
+        <location filename="frontpage.py" line="447"/>
         <source>ADD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="628"/>
+        <location filename="frontpage.py" line="448"/>
         <source>DELETE</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="639"/>
+        <location filename="frontpage.py" line="449"/>
         <source>Block Words List</source>
         <translation type="unfinished">屏蔽词列表</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="653"/>
+        <location filename="frontpage.py" line="450"/>
         <source>Punctuation filter</source>
         <translation type="unfinished">开启标点符号过滤</translation>
     </message>
     <message>
-        <location filename="frontdesign.ui" line="675"/>
+        <location filename="frontpage.py" line="452"/>
         <source> System_Language </source>
         <translation type="unfinished"> 设置系统语言 </translation>
     </message>
     <message>
         <location filename="frontdesign.ui" line="707"/>
         <source>                   Chinese Tutorial</source>
-        <translation type="unfinished">                   中文教程</translation>
+        <translation type="obsolete">                   中文教程</translation>
     </message>
     <message>
         <location filename="frontdesign.ui" line="714"/>
         <source>                     English Tutorial</source>
-        <translation type="unfinished">                     英文教程</translation>
+        <translation type="obsolete">                     英文教程</translation>
+    </message>
+    <message>
+        <location filename="frontpage.py" line="456"/>
+        <source>&lt;a href=&quot;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS/blob/main/docs/cn/README.md&quot;&gt;Chinese Tutorial&lt;/a&gt;</source>
+        <translation type="unfinished">&lt;a href=&quot;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS/blob/main/docs/cn/README.md&quot;&gt;中文教程&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="frontpage.py" line="457"/>
+        <source>&lt;a href=&quot;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS/blob/main/README.md&quot;&gt;English Tutorial&lt;/a&gt;</source>
+        <translation type="unfinished">&lt;a href=&quot;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS/blob/main/README.md&quot;&gt;英文教程&lt;/a&gt;</translation>
     </message>
 </context>
 </TS>

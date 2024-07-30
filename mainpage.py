@@ -5,8 +5,9 @@ import json
 import asyncio
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPlainTextEdit
-from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot,QStringListModel,QObject,QTranslator
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPlainTextEdit, QSplashScreen
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot,QStringListModel,QObject,QTranslator,QUrl,Qt, QTimer
+from PyQt5.QtGui import QDesktopServices, QPixmap
 from frontpage import Ui_MainWindow
 from tools.i18n.i18n import I18nAuto
 from bilibiliApi import BilibiliApi
@@ -68,6 +69,7 @@ class ServerThread(QThread):
 class MainApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        #self.app = app  # 保存app实例
         self.setupUi(self)
         self.server_thread = None
         self.translator = QTranslator()
@@ -76,6 +78,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
         # Find the QPlainTextEdit widget
         self.console_output = self.findChild(QPlainTextEdit, 'plainTextEdit')
         self.console_output.setReadOnly(True)
+        #self.console_output.setStyleSheet("QPlainTextEdit { line-height: 1.2; }")  # 设置行距
 
         # Set up EmittingStream and redirect stdout and stderr
         self.emitting_stream = EmittingStream()
@@ -136,6 +139,10 @@ class MainApp(QMainWindow, Ui_MainWindow):
 
         #comment page setting
         self.checkbox = self.findChild(QtWidgets.QCheckBox, 'checkBox')
+        self.checkcomment = self.findChild(QtWidgets.QCheckBox, 'checkBox_2')
+        self.checkSC = self.findChild(QtWidgets.QCheckBox, 'checkBox_3')
+        self.checkgift = self.findChild(QtWidgets.QCheckBox, 'checkBox_4')
+        self.checkmember = self.findChild(QtWidgets.QCheckBox, 'checkBox_5')
         self.list_view=self.findChild(QtWidgets.QListView, 'listView')
         self.block_words_line = self.findChild(QtWidgets.QLineEdit, 'lineEdit')
         self.pushButton_6.clicked.connect(self.add_block_word)
@@ -158,6 +165,21 @@ class MainApp(QMainWindow, Ui_MainWindow):
         self.bilibili_api = BilibiliApi(self.SESSDATA_line.text(),self.bili_jct_line.text(),self.buvid3_line.text())
         self.bilibili_api.connection_established.connect(self.on_server_started)
         self.bilibili_api.connection_closed.connect(self.on_server_stopped)
+
+        # Enable link interaction for label_23
+        self.label_23.setTextFormat(Qt.RichText)
+        self.label_23.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        self.label_23.setOpenExternalLinks(False)
+        self.label_23.linkActivated.connect(self.open_link)
+
+        # Enable link interaction for label_24
+        self.label_24.setTextFormat(Qt.RichText)
+        self.label_24.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        self.label_24.setOpenExternalLinks(False)
+        self.label_24.linkActivated.connect(self.open_link)
+
+    def open_link(self, url):
+        QDesktopServices.openUrl(QUrl(url))
 
     #system language
     def change_language(self, language):
@@ -213,7 +235,12 @@ class MainApp(QMainWindow, Ui_MainWindow):
             "gift_format":self.gift_format_line.text(),
             "member_format":self.member_format_line.text(),
             "Punctuation_filter":self.checkbox.isChecked(),
+            "Comment_switch": self.checkcomment.isChecked(),
+            "SC_switch": self.checkSC.isChecked(),
+            "Gift_switch": self.checkgift.isChecked(),
+            "Member_switch": self.checkmember.isChecked(),
             "Block_Words": self.block_words,
+
             #aboutpage
             "System_language":self.system_language_combo.currentText(),
         }
@@ -259,6 +286,10 @@ class MainApp(QMainWindow, Ui_MainWindow):
             self.gift_format_line.setText(parameters.get("gift_format", ""))
             self.member_format_line.setText(parameters.get("member_format", ""))
             self.checkbox.setChecked(parameters.get("Punctuation_filter",""))
+            self.checkcomment.setChecked(parameters.get("Comment_switch", ""))
+            self.checkSC.setChecked(parameters.get("SC_switch", ""))
+            self.checkgift.setChecked(parameters.get("Gift_switch", ""))
+            self.checkmember.setChecked(parameters.get("Member_switch", ""))
             #about
             self.system_language_combo.setCurrentText(parameters.get("System_language",""))
             self.change_language(parameters["System_language"])
@@ -272,6 +303,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                 self.block_words = []
 
             self.model.setStringList(self.block_words)
+            self.complete_loading()
     #show message def
     def show_message(self, title, message):
         msg = QMessageBox()
@@ -519,10 +551,26 @@ class MainApp(QMainWindow, Ui_MainWindow):
         # 更新模型
         self.model.setStringList(self.block_words)
 
+    def complete_loading(self):
+        #print("mainpage")
+        current_directory = os.getcwd()
+        #print(f"Current directory: {current_directory}")
+        flag_path = os.path.join(current_directory, "loading_complete.flag")
+        with open(flag_path, "w") as f:
+            f.write("Loading complete")
+        #print(f"Flag file created at: {flag_path}")
+        #print("show mainwindow")
+
 
 if __name__ == "__main__":
+    print("run main")
     global app
     app = QApplication(sys.argv)
+    print("run loading")
     mainWindow = MainApp()
+    print("Thank you for using this software.")
+    print("The software source address is:")
+    print("https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS")
     mainWindow.show()
     sys.exit(app.exec_())
+

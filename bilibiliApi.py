@@ -154,7 +154,7 @@ class BilibiliApi(QObject):
         self.thread.start()
 
     def handle_event(self, event: Dict[str, Any], event_type: str):
-        if event_type == 'danmaku':
+        if event_type == 'danmaku' and config.parameters["Comment_switch"]:
             info = event.get('data', {}).get('info', [])
             if info and len(info) > 1:
                 content = info[1]
@@ -175,7 +175,7 @@ class BilibiliApi(QObject):
                     })
                     logging.info("Comment is placed in the queue")
 
-        elif event_type == 'gift':
+        elif event_type == 'gift' and config.parameters["Gift_switch"]:
             info = event['data']['data']
             self.queue.put({
                 'type': 'gift',
@@ -187,7 +187,7 @@ class BilibiliApi(QObject):
             })
             logging.info("Gift information is placed in the queue")
 
-        elif event_type == 'super_chat':
+        elif event_type == 'super_chat' and config.parameters["SC_switch"]:
             info = event['data']['data']
             self.queue.put({
                 'type': 'super_chat',
@@ -199,7 +199,7 @@ class BilibiliApi(QObject):
             })
             logging.info("Super Chat message is placed in the queue")
 
-        elif event_type == 'guard_buy':
+        elif event_type == 'guard_buy' and config.parameters["Member_switch"]:
             info = event.get('data', {})
 
             # 直接使用 info 变量，因为它已经是一个字典
