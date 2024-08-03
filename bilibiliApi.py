@@ -21,6 +21,37 @@ from config import config
 from block_words_check import contains_block_words
 from inference_webui import get_tts_wav
 
+def number_to_chinese(string):
+    num_dict = {
+        '0': '零', '1': '一', '2': '二', '3': '三', '4': '四',
+        '5': '五', '6': '六', '7': '七', '8': '八', '9': '九'
+    }
+    return ''.join(num_dict.get(char, char) for char in string)
+
+def number_to_english(string):
+    num_dict = {
+        '0': ' zero ', '1': ' one ', '2': ' two ', '3': ' three ', '4': ' four ',
+        '5': ' five ', '6': ' six ', '7': ' seven ', '8': ' eight ', '9': ' nine '
+    }
+
+    result = []
+    for char in string:
+        if char in num_dict:
+            result.append(num_dict[char])
+        else:
+            result.append(char)
+
+    return ''.join(result)
+
+
+def num_to_str(text,language):
+    if language == 'Chinese':
+        changetext=number_to_chinese(text)
+    elif language == "English":
+        changetext=number_to_english(text)
+    return changetext
+
+
 def play_audio(file_path):
     # 初始化 pygame
     pygame.mixer.init()
@@ -162,6 +193,7 @@ class BilibiliApi(QObject):
                 username = info[2][1]
                 text=remove_text_inside_brackets(content)
                 text = replace_all_punctuation(text)
+                #text=num_to_str(text,config.parameters['System_language'])
                 if contains_block_words(content, config.parameters["Block_Words"]):
                     logging.info('BLOCK')
                 elif text is None or not text.strip():
@@ -169,7 +201,7 @@ class BilibiliApi(QObject):
                 else:
                     self.queue.put({
                         'type': 'danmaku',
-                        'content': remove_text_inside_brackets(content),
+                        'content': num_to_str(remove_text_inside_brackets(content),config.parameters['System_language']),
                         'user_id': user_id,
                         'username': username
                     })
@@ -193,7 +225,7 @@ class BilibiliApi(QObject):
                 'type': 'super_chat',
                 'super_chat_info': {
                     'username': info['user_info']['uname'],
-                    'message': remove_text_inside_brackets(info['message']),
+                    'message': num_to_str(remove_text_inside_brackets(info['message']),config.parameters['System_language']),
                     'amount': info['price']
                 }
             })

@@ -5,7 +5,7 @@ import json
 import asyncio
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPlainTextEdit, QSplashScreen
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QPlainTextEdit, QLabel
 from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot,QStringListModel,QObject,QTranslator,QUrl,Qt, QTimer
 from PyQt5.QtGui import QDesktopServices, QPixmap
 from frontpage import Ui_MainWindow
@@ -78,7 +78,6 @@ class MainApp(QMainWindow, Ui_MainWindow):
         # Find the QPlainTextEdit widget
         self.console_output = self.findChild(QPlainTextEdit, 'plainTextEdit')
         self.console_output.setReadOnly(True)
-        #self.console_output.setStyleSheet("QPlainTextEdit { line-height: 1.2; }")  # 设置行距
 
         # Set up EmittingStream and redirect stdout and stderr
         self.emitting_stream = EmittingStream()
@@ -304,6 +303,41 @@ class MainApp(QMainWindow, Ui_MainWindow):
 
             self.model.setStringList(self.block_words)
             self.complete_loading()
+
+            language = parameters['System_language']
+            if language == 'English':
+                print("""###################################################
+ Click the "About" button to view the user manual
+
+ Quick Start
+ Open Chrome browser and log in Bilibili account
+ Open Developer Tools, find the Application
+ On the left, find: Storage/Cookies
+ Select any Bilibili domain, find the Value 
+ Copy them into the software and enter the ID code
+
+ IMPORTANT: DON'T FORGET CLICK the Apply button!!!
+
+ After saving, click Start Server to connect
+
+ For other browser users, please see user manual                                                                     
+###################################################""")
+            elif language == 'Chinese':
+                print("""###################################################
+ 软件详细功能介绍请点击 "关于" 按钮查阅用户手册
+ 快速上手
+ 打开Chrome浏览器并登录B站账号
+ 打开开发者工具, 找到Application选项卡
+ 在左侧找到: Storage/Cookies
+ 选中任一b站域名，在右侧找到对应三项Value并复制进软件
+ 输入直播间码后请点击保存设置按钮
+
+ 不要忘按保存设置！会报错！
+
+ 保存后点击Start Server连接即可   
+ 其他浏览器用户请见:                                                                   
+ https://nemo2011.github.io/bilibili-api/#/get-credential    
+###################################################""")
     #show message def
     def show_message(self, title, message):
         msg = QMessageBox()
@@ -568,9 +602,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     print("run loading")
     mainWindow = MainApp()
-    print("Thank you for using this software.")
-    print("The software source address is:")
-    print("https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS")
+
     mainWindow.show()
     sys.exit(app.exec_())
 

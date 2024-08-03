@@ -560,7 +560,7 @@
          <item row="0" column="0">
           <layout class="QVBoxLayout" name="verticalLayout_16">
            <item>
-            <widget class="QLabel" name="label_17">
+            <widget class="QCheckBox" name="checkBox_2">
              <property name="text">
               <string>When receiving a comment:</string>
              </property>
@@ -570,7 +570,7 @@
             <widget class="QLineEdit" name="lineEdit_5"/>
            </item>
            <item>
-            <widget class="QLabel" name="label_18">
+            <widget class="QCheckBox" name="checkBox_3">
              <property name="text">
               <string>When receiving a super chat:</string>
              </property>
@@ -580,7 +580,7 @@
             <widget class="QLineEdit" name="lineEdit_7"/>
            </item>
            <item>
-            <widget class="QLabel" name="label_19">
+            <widget class="QCheckBox" name="checkBox_4">
              <property name="text">
               <string>When receiving a gift:</string>
              </property>
@@ -590,7 +590,7 @@
             <widget class="QLineEdit" name="lineEdit_8"/>
            </item>
            <item>
-            <widget class="QLabel" name="label_20">
+            <widget class="QCheckBox" name="checkBox_5">
              <property name="text">
               <string>When a user joins as a member:</string>
              </property>
@@ -704,18 +704,87 @@
              <item>
               <widget class="QLabel" name="label_23">
                <property name="text">
-                <string>                   Chinese Tutorial</string>
+                <string>&lt;a href=&quot;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS/blob/main/docs/cn/README.md&quot;&gt;Chinese Tutorial&lt;/a&gt;</string>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="label_24">
                <property name="text">
-                <string>                     English Tutorial</string>
+                <string>&lt;a href=&quot;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS/blob/main/README.md&quot;&gt;English Tutorial&lt;/a&gt;</string>
+               </property>
+               <property name="textFormat">
+                <enum>Qt::RichText</enum>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
             </layout>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <item>
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Project source code:</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>&lt;a href=&quot;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS&quot;&gt;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS&lt;/a&gt;</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>About GPT-SoVITS：</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>&lt;a href=&quot;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS&quot;&gt;https://github.com/2841130z/BiliStreamEcho_based_on_GPT-SoVITS&lt;/a&gt;</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>Current version: BiliStreamEcho ver 1.0</string>
+             </property>
+             <property name="textFormat">
+              <enum>Qt::RichText</enum>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
