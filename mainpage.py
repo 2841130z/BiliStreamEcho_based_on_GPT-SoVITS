@@ -364,7 +364,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                 danmaku_event = {
                     'data': {
                         'info': [
-                            [], '测试弹幕内容', [12345, '测试用户']
+                            [], '测试弹幕内容', [12345, '测试用户114']
                         ]
                     }
                 }
@@ -374,7 +374,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                 gift_event = {
                     'data': {
                         'data': {
-                            'uname': '测试用户',
+                            'uname': '测试用户514',
                             'giftName': '辣条',
                             'num': 5
                         }
@@ -387,7 +387,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                     'data': {
                         'data': {
                             'user_info': {
-                                'uname': '测试用户'
+                                'uname': '测试用户1919'
                             },
                             'message': '这是一个超级留言',
                             'price': 100
@@ -400,7 +400,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                 guard_buy_event = {
                     'data': {
                         'data': {
-                            'username': '测试用户',
+                            'username': '测试用户810',
                             'guard_level': 3,
                             'num': 1,
                             'gift_name': '舰长'
@@ -414,7 +414,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                 danmaku_event = {
                     'data': {
                         'info': [
-                            [], 'This is a comment inference', [12345, 'Test user']
+                            [], 'This is a comment inference', [12345, 'Test user543']
                         ]
                     }
                 }
@@ -424,7 +424,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                 gift_event = {
                     'data': {
                         'data': {
-                            'uname': 'Test user',
+                            'uname': 'Test user1145',
                             'giftName': 'Gift name',
                             'num': 5
                         }
@@ -437,7 +437,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                     'data': {
                         'data': {
                             'user_info': {
-                                'uname': 'Test User'
+                                'uname': 'Test User321'
                             },
                             'message': 'This is a super chat',
                             'price': 100
@@ -450,7 +450,7 @@ class MainApp(QMainWindow, Ui_MainWindow):
                 guard_buy_event = {
                     'data': {
                         'data': {
-                            'username': 'Test user',
+                            'username': 'Test user123',
                             'guard_level': 3,
                             'num': 1,
                             'gift_name': 'fans club'

@@ -203,7 +203,7 @@ class BilibiliApi(QObject):
                         'type': 'danmaku',
                         'content': num_to_str(remove_text_inside_brackets(content),config.parameters['System_language']),
                         'user_id': user_id,
-                        'username': username
+                        'username': num_to_str(username,config.parameters['System_language'])
                     })
                     logging.info("Comment is placed in the queue")
 
@@ -212,7 +212,7 @@ class BilibiliApi(QObject):
             self.queue.put({
                 'type': 'gift',
                 'gift_info': {
-                    'username': info['uname'],
+                    'username': num_to_str(info['uname'],config.parameters['System_language']),
                     'gift_name': info['giftName'],
                     'gift_num': info['num']
                 }
@@ -224,7 +224,7 @@ class BilibiliApi(QObject):
             self.queue.put({
                 'type': 'super_chat',
                 'super_chat_info': {
-                    'username': info['user_info']['uname'],
+                    'username': num_to_str(info['user_info']['uname'],config.parameters['System_language']),
                     'message': num_to_str(remove_text_inside_brackets(info['message']),config.parameters['System_language']),
                     'amount': info['price']
                 }
@@ -259,7 +259,7 @@ class BilibiliApi(QObject):
                 self.queue.put({
                     'type': 'guard_buy',
                     'guard_info': {
-                        'username': username,
+                        'username': num_to_str(username,config.parameters['System_language']),
                         'guard_level': guard_level,
                         'num': num,
                         'gift_name': gift_name
