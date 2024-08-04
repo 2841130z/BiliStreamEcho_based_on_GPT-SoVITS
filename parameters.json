@@ -1,8 +1,8 @@
 {
-    "ID_code": "5105133",
-    "SESSDATA": "d15a77db%2C1723681283%2C3f18c%2A21CjB6VoyCM4zD3pCm1EZahOEQEp0gyPSnKL4LmCdrYG5ZROLubKRmopsfj7VN_jE8EkgSVnV6Q1pYQmhSMjV1WE45S0VTV0h2bGstcjBabXFlQ21ZNFlvblNiRkJQOWk0V3RvOUFfbG8tMG5tbzBXZkhzZ19jNWZLS2tfU096bEQ3VHdaS2ZjOUlRIIEC",
-    "bili_jct": "5dd646b820faea897d9327e99d52591b",
-    "buvid3": "E70B976E-6475-F861-D763-81B82BA9F98347228infoc",
+    "ID_code": "",
+    "SESSDATA": "",
+    "bili_jct": "",
+    "buvid3": "",
     "GPT_Model": "otto-e10.ckpt",
     "SoVITS_Model": "otto_e39_s1638.pth",
     "refer_wav_path": "example\\otto_\u8def\u4e0a\u505c\u8f66\u7684\u95ee\u9898\u592a\u591a\u4e86\u554a\uff0c\u6240\u4ee5\u6211\u73b0\u5728\u5f97\u505a\u8fd9\u4e2a\u5e02\u533a\u7ba1\u7406\u4e86\u554a.wav",
@@ -22,9 +22,6 @@
     "SC_switch": true,
     "Gift_switch": true,
     "Member_switch": true,
-    "Block_Words": [
-        "sht",
-        "\u70b9\u6b4c"
-    ],
+    "Block_Words": [],
     "System_language": "Chinese"
 }
