@@ -263,50 +263,78 @@ class MainApp(QMainWindow, Ui_MainWindow):
         if os.path.exists('parameters.json'):
             with open('parameters.json', 'r') as f:
                 parameters = json.load(f)
-            #home load
-            self.ID_code_line.setText(parameters.get("ID_code", ""))
-            self.SESSDATA_line.setText(parameters.get("SESSDATA", ""))
-            self.bili_jct_line.setText(parameters.get("bili_jct", ""))
-            self.buvid3_line.setText(parameters.get("buvid3", ""))
-            #model load
-            self.gpt_model_combo.setCurrentText(parameters.get("GPT_Model", ""))
-            self.sovits_model_combo.setCurrentText(parameters.get("SoVITS_Model", ""))
-            self.reference_audio_line.setText(parameters.get("refer_wav_path", ""))
-            self.audio_subtitle_line.setText(parameters.get("prompt_text", ""))
-            self.top_k_spin.setValue(parameters.get("top_k", 0))
-            self.top_p_spin.setValue(parameters.get("top_p", 0.0))
-            self.temperature_spin.setValue(parameters.get("temperature", 0.0))
-            self.reference_language_combo.setCurrentText(parameters.get("prompt_language", ""))
-            self.cutting_method_combo.setCurrentText(parameters.get("how_to_cut", ""))
-            self.output_language_combo.setCurrentText(parameters.get("text_language", ""))
-            #comment load
-            self.comment_format_line.setText(parameters.get("Comment_format",""))
-            self.SC_format_line.setText(parameters.get("SC_format", ""))
-            self.gift_format_line.setText(parameters.get("gift_format", ""))
-            self.member_format_line.setText(parameters.get("member_format", ""))
-            self.checkbox.setChecked(parameters.get("Punctuation_filter",""))
-            self.checkcomment.setChecked(parameters.get("Comment_switch", ""))
-            self.checkSC.setChecked(parameters.get("SC_switch", ""))
-            self.checkgift.setChecked(parameters.get("Gift_switch", ""))
-            self.checkmember.setChecked(parameters.get("Member_switch", ""))
-            #about
-            self.system_language_combo.setCurrentText(parameters.get("System_language",""))
-            self.change_language(parameters["System_language"])
+        else:
+            parameters = {
+                "ID_code": "",
+                "SESSDATA": "",
+                "bili_jct": "",
+                "buvid3": "",
+                "GPT_Model": "otto-e10.ckpt",
+                "SoVITS_Model": "otto_e39_s1638.pth",
+                "refer_wav_path": "example\otto_路上停车的问题太多了啊，所以我现在得做这个市区管理了啊.wav",
+                "prompt_text": "路上停车的问题太多了啊，所以我现在得做这个市区管理了啊。",
+                "top_k": 5,
+                "top_p": 1.0,
+                "temperature": 1.0,
+                "prompt_language": "Chinese",
+                "how_to_cut": "No slice",
+                "text_language": "Multilingual",
+                "Comment_format": "$USER said: $TEXT.",
+                "SC_format": "$USER send a super chat: $TEXT.",
+                "gift_format": "Thank you $USER for sending $COUNT $GIFT.",
+                "member_format": "$USER renewed $MEMBER for $COUNT months. thank you.",
+                "Punctuation_filter": False,
+                "Comment_switch": True,
+                "SC_switch": True,
+                "Gift_switch": True,
+                "Member_switch": True,
+                "System_language": "English"
+            }
 
+        # home load
+        self.ID_code_line.setText(parameters.get("ID_code", ""))
+        self.SESSDATA_line.setText(parameters.get("SESSDATA", ""))
+        self.bili_jct_line.setText(parameters.get("bili_jct", ""))
+        self.buvid3_line.setText(parameters.get("buvid3", ""))
+        # model load
+        self.gpt_model_combo.setCurrentText(parameters.get("GPT_Model", ""))
+        self.sovits_model_combo.setCurrentText(parameters.get("SoVITS_Model", ""))
+        self.reference_audio_line.setText(parameters.get("refer_wav_path", ""))
+        self.audio_subtitle_line.setText(parameters.get("prompt_text", ""))
+        self.top_k_spin.setValue(parameters.get("top_k", 5))
+        self.top_p_spin.setValue(parameters.get("top_p", 1.0))
+        self.temperature_spin.setValue(parameters.get("temperature", 1.0))
+        self.reference_language_combo.setCurrentText(parameters.get("prompt_language", ""))
+        self.cutting_method_combo.setCurrentText(parameters.get("how_to_cut", "No slice"))
+        self.output_language_combo.setCurrentText(parameters.get("text_language", ""))
+        # comment load
+        self.comment_format_line.setText(parameters.get("Comment_format", ""))
+        self.SC_format_line.setText(parameters.get("SC_format", ""))
+        self.gift_format_line.setText(parameters.get("gift_format", ""))
+        self.member_format_line.setText(parameters.get("member_format", ""))
+        self.checkbox.setChecked(parameters.get("Punctuation_filter", False))
+        self.checkcomment.setChecked(parameters.get("Comment_switch", True))
+        self.checkSC.setChecked(parameters.get("SC_switch", True))
+        self.checkgift.setChecked(parameters.get("Gift_switch", True))
+        self.checkmember.setChecked(parameters.get("Member_switch", True))
+        # about
+        self.system_language_combo.setCurrentText(parameters.get("System_language", "English"))
+        self.change_language(parameters["System_language"])
 
-            # 检查 Block_Words 是否存在且不为空
-            block_words = parameters.get("Block_Words")
-            if block_words:  # 这将检查 block_words 是否为 None 或空列表
-                self.block_words = block_words
-            else:# 初始化屏蔽词列表
-                self.block_words = []
+        # 检查 Block_Words 是否存在且不为空
+        block_words = parameters.get("Block_Words")
+        if block_words:  # 这将检查 block_words 是否为 None 或空列表
+            self.block_words = block_words
+        else:  # 初始化屏蔽词列表
+            self.block_words = []
 
-            self.model.setStringList(self.block_words)
-            self.complete_loading()
+        self.model.setStringList(self.block_words)
+        self.complete_loading()
 
-            language = parameters['System_language']
-            if language == 'English':
-                print("""###################################################
+        language = parameters['System_language']
+
+        if language == 'English':
+            print("""###################################################
  Click the "About" button to view the user manual
 
  Quick Start
@@ -322,8 +350,8 @@ class MainApp(QMainWindow, Ui_MainWindow):
 
  For other browser users, please see user manual                                                                     
 ###################################################""")
-            elif language == 'Chinese':
-                print("""###################################################
+        elif language == 'Chinese':
+            print("""###################################################
  软件详细功能介绍请点击 "关于" 按钮查阅用户手册
  快速上手
  打开Chrome浏览器并登录B站账号
@@ -338,6 +366,9 @@ class MainApp(QMainWindow, Ui_MainWindow):
  其他浏览器用户请见:                                                                   
  https://nemo2011.github.io/bilibili-api/#/get-credential    
 ###################################################""")
+
+
+
     #show message def
     def show_message(self, title, message):
         msg = QMessageBox()

@@ -22,13 +22,13 @@ if os.path.exists('parameters.json'):
         gpt_path = "GPT_weights/" + parameters["GPT_Model"]
     else:
         print("GPT_Model or SoVITS_Model parameter not found in parameters.json. Using default paths.")
-        sovits_path = "SoVITS_weights/anon1_e8_s2184.pth"
-        gpt_path = "GPT_weights/anon1-e15.ckpt"
+        sovits_path = "SoVITS_weights/otto_e39_s1638.pth"
+        gpt_path = "GPT_weights/otto-e10.ckpt"
 else:
     # 如果参数文件不存在，使用默认路径
     print("parameters.json file not found. Using default paths.")
-    sovits_path = "SoVITS_weights/anon1_e8_s2184.pth"
-    gpt_path = "GPT_weights/anon1-e15.ckpt"
+    sovits_path = "SoVITS_weights/otto_e39_s1638.pth"
+    gpt_path = "GPT_weights/otto-e10.ckpt"
 # 打印路径以供验证
 print(f"sovits_path: {sovits_path}")
 print(f"gpt_path: {gpt_path}")
@@ -73,22 +73,38 @@ def load_parameters():
         # 打开并读取参数文件
         with open('parameters.json', 'r') as f:
             parameters = json.load(f)
-        # load parameters
-        parameters["prompt_language"] = list_language[parameters["prompt_language"]]
-        parameters["text_language"] = list_language[parameters["text_language"]]
-        TTS_par=parameters
-         #TTS_par["refer_wav_path"] = parameters["Reference_Audio"]
-        #TTS_par["prompt_text"] = parameters["Audio_Subtitle"]
-        #TTS_par["prompt_language"] = parameters["Reference_Language"]
-        #TTS_par["text_language"] = parameters["Output_Language"]
-        #TTS_par["how_to_cut"] = parameters["Cutting_Method"]
-        #TTS_par["top_k"] = parameters["top_k"]
-        #TTS_par["top_p"] = parameters["top_p"]
-        #TTS_par["temperature"] = parameters["temperature"]
-        # text
-        # ref_free = False
-        #g_config.parameters_changed = False
-        #parameters_initial = True
+    else:
+        parameters = {
+            "ID_code": "",
+            "SESSDATA": "",
+            "bili_jct": "",
+            "buvid3": "",
+            "GPT_Model": "otto-e10.ckpt",
+            "SoVITS_Model": "otto_e39_s1638.pth",
+            "refer_wav_path": "example\otto_路上停车的问题太多了啊，所以我现在得做这个市区管理了啊.wav",
+            "prompt_text": "路上停车的问题太多了啊，所以我现在得做这个市区管理了啊。",
+            "top_k": 5,
+            "top_p": 1.0,
+            "temperature": 1.0,
+            "prompt_language": "Chinese",
+            "how_to_cut": "No slice",
+            "text_language": "Multilingual",
+            "Comment_format": "$USER said: $TEXT.",
+            "SC_format": "$USER send a super chat: $TEXT.",
+            "gift_format": "Thank you $USER for sending $COUNT $GIFT.",
+            "member_format": "$USER renewed $MEMBER for $COUNT months. thank you.",
+            "Punctuation_filter": False,
+            "Comment_switch": True,
+            "SC_switch": True,
+            "Gift_switch": True,
+            "Member_switch": True,
+            "System_language": "English"
+        }
+    # load parameters
+    parameters["prompt_language"] = list_language[parameters["prompt_language"]]
+    parameters["text_language"] = list_language[parameters["text_language"]]
+    TTS_par = parameters
+
     return TTS_par
 
 if infer_device == "cuda":

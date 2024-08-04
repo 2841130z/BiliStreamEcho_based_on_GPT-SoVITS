@@ -145,4 +145,4 @@ In short, the more random the parameters are, the more repeatable they are, whil
 - Mihoyo: https://www.yuque.com/baicaigongchang1145haoyuangong/ib3g1e/nwnaga50cazb2v93
 - Mygo: https://www.bilibili.com/video/BV1XH4y137Lk/?spm_id_from=333.337.search-card.all.click&vd_source=4e6fd11ccbcccf162770ae5618e3c76f
 - GBC: https://www.bilibili.com/video/BV1gU411o7Ec/?spm_id_from=333.337.search-card.all.click&vd_source=4e6fd11ccbcccf162770ae5618e3c76f 
-- - Dong Xuelian: https://www.bilibili.com/video/BV1aQ4y1w7bF/?spm_id_from=3 33.337.search-card.all.click&vd_source=4e6fd11ccbcccf162770ae5618e3c76f
+- Dong Xuelian: https://www.bilibili.com/video/BV1aQ4y1w7bF/?spm_id_from=3 33.337.search-card.all.click&vd_source=4e6fd11ccbcccf162770ae5618e3c76f

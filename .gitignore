@@ -7,12 +7,8 @@ runtime
 output
 logs
 reference
-GPT_weights
-SoVITS_weights
-example
 TEMP
 temporary_audio.wav
-parameters.json
 ffmpeg.exe
 ffprobe.exe
 
