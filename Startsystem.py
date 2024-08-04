@@ -47,7 +47,7 @@ class ProgressBarApp:
     def update_progress(self):
         current_progress = self.progress_var.get()
         if current_progress < 100:
-            self.progress_var.set(current_progress + 0.4)
+            self.progress_var.set(current_progress + 0.3)
             self.root.after(50, self.update_progress)
         else:
             self.label.config(text="Almost done...")
