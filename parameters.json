@@ -1,12 +1,12 @@
 {
-    "ID_code": "",
-    "SESSDATA": "",
-    "bili_jct": "",
-    "buvid3": "",
-    "GPT_Model": "\u6d3e\u8499-e20.ckpt",
-    "SoVITS_Model": "\u6d3e\u8499_e100_s121900.pth",
-    "refer_wav_path": "example\\\u8bf4\u8bdd\u2014\u65e2\u7136\u7f57\u838e\u8389\u4e9a\u8bf4\u8db3\u8ff9\u4e0a\u6709\u5143\u7d20\u529b\uff0c\u7528\u5143\u7d20\u89c6\u91ce\u5e94\u8be5\u80fd\u5f88\u6e05\u695a\u5730\u770b\u5230\u5427\u3002.wav",
-    "prompt_text": "\u65e2\u7136\u7f57\u838e\u8389\u4e9a\u8bf4\u8db3\u8ff9\u4e0a\u6709\u5143\u7d20\u529b\uff0c\u7528\u5143\u7d20\u89c6\u91ce\u5e94\u8be5\u80fd\u5f88\u6e05\u695a\u5730\u770b\u5230\u5427\u3002",
+    "ID_code": "5105133",
+    "SESSDATA": "d15a77db%2C1723681283%2C3f18c%2A21CjB6VoyCM4zD3pCm1EZahOEQEp0gyPSnKL4LmCdrYG5ZROLubKRmopsfj7VN_jE8EkgSVnV6Q1pYQmhSMjV1WE45S0VTV0h2bGstcjBabXFlQ21ZNFlvblNiRkJQOWk0V3RvOUFfbG8tMG5tbzBXZkhzZ19jNWZLS2tfU096bEQ3VHdaS2ZjOUlRIIEC",
+    "bili_jct": "5dd646b820faea897d9327e99d52591b",
+    "buvid3": "E70B976E-6475-F861-D763-81B82BA9F98347228infoc",
+    "GPT_Model": "otto-e10.ckpt",
+    "SoVITS_Model": "otto_e39_s1638.pth",
+    "refer_wav_path": "example\\otto_\u8def\u4e0a\u505c\u8f66\u7684\u95ee\u9898\u592a\u591a\u4e86\u554a\uff0c\u6240\u4ee5\u6211\u73b0\u5728\u5f97\u505a\u8fd9\u4e2a\u5e02\u533a\u7ba1\u7406\u4e86\u554a.wav",
+    "prompt_text": "\u8def\u4e0a\u505c\u8f66\u7684\u95ee\u9898\u592a\u591a\u4e86\u554a\uff0c\u6240\u4ee5\u6211\u73b0\u5728\u5f97\u505a\u8fd9\u4e2a\u5e02\u533a\u7ba1\u7406\u4e86\u554a\u3002",
     "top_k": 5,
     "top_p": 1.0,
     "temperature": 1.0,
@@ -16,12 +16,15 @@
     "Comment_format": "$USER said: $TEXT.",
     "SC_format": "$USER send a super chat: $TEXT.",
     "gift_format": "Thank you $USER for sending $COUNT $GIFT.",
-    "member_format": "$USER renewed $MEMBER for $COUNT months, thank you.",
+    "member_format": "$USER renewed $MEMBER for $COUNT months. thank you.",
     "Punctuation_filter": false,
     "Comment_switch": true,
     "SC_switch": true,
     "Gift_switch": true,
     "Member_switch": true,
-    "Block_Words": [],
-    "System_language": "English"
+    "Block_Words": [
+        "sht",
+        "\u70b9\u6b4c"
+    ],
+    "System_language": "Chinese"
 }
