@@ -103,11 +103,16 @@ conda install -c conda-forge 'ffmpeg<7'
 
 ## 操作步骤
 ### 启动
+
+<img src="../../screenshot/start.png" alt="示例图片">
+
 1. 下载整合包，解压后将项目文件放在无中文名的路径上
 2. 以**管理员身份**点击 **BiliStreamEcho.exe**启动程序
 3. 初次启动较慢是正常现象，如果等待很久依然没有动静可以关闭后点击go-mainpage.bat进入调试模式
 4. 如果报错了跟我说
 ### 连接
+<img src="../../screenshot/cnhome.png" alt="示例图片">
+
  1. 打开Chrome浏览器并登录B站账号 （其他浏览器用户请见:https://nemo2011.github.io/bilibili-api/#/get-credential ） 
  2. 打开开发者工具, 找到Application选项卡
  3. 在左侧找到: Storage/Cookies
@@ -123,6 +128,8 @@ conda install -c conda-forge 'ffmpeg<7'
 
 
 ### TTS模型设置
+<img src="../../screenshot/cnmodel.png" alt="示例图片">
+
 1. 点击**TTS模型**按钮，点击**打开文件路径**打开项目目录
 2. 在文件夹（GPT_weights、SoVITS_weights、example）中放入语音模型以及参考音频。 
 3. 点击**刷新模型路径**按钮或重启软件
@@ -133,6 +140,8 @@ conda install -c conda-forge 'ffmpeg<7'
 6. **点击保存设置 很重要！不要忘记！**
 
 ### 语音格式设置
+<img src="../../screenshot/cncomment.png" alt="示例图片">
+
 1. 点击 **语音格式**按钮，进入页面
 2. 我感觉这一页没什么好说的，总之勾选可以开启/关闭对应项目，可以自定义添加/删除屏蔽词以及更改输出格式
 3. 对应参数说明见上文，参数理论上可以删除，也就是说本来是$USER说: $TEXT.你可以删除$USER只保留$TEXT，这样TTS输出时就不会念观众名只读弹幕内容了。

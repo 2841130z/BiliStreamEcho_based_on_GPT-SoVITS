@@ -101,11 +101,15 @@ In short, the more random the parameters are, the more repeatable they are, whil
 
 ## Operation steps
 ### Start
+<img src="screenshot/start.png" alt="示例图片">
+
 1. Download the integration package, unzip it and put the project file in a path without a Chinese name
 2. Click **BiliStreamEcho.exe** as **administrator** to start the program
 3. It is normal that the initial startup is slow. If there is no movement after waiting for a long time, you can close it and click go-mainpage.bat to enter the debugging mode
 4. If there is an error, plz let me know
 ### Connection
+<img src="screenshot/enhome.png" alt="示例图片">
+
 1. Open the Chrome browser and log in to the B station account (other browser users, please see: https://nemo2011.github.io/bilibili-api/#/get-credential)
 2. Open the developer tools and find the Application tab
 3. Find: Storage/Cookies on the left
@@ -121,6 +125,8 @@ In short, the more random the parameters are, the more repeatable they are, whil
 
 
 ### TTS model settings
+<img src="screenshot/enmodel.png" alt="示例图片">
+
 1. Click the **Model** button, and click **File Path** to open the project directory
 2. Put the voice model and reference audio in the folder (GPT_weights, SoVITS_weights, example).
 3. Click the **Refresh** button or restart the software
@@ -131,6 +137,8 @@ In short, the more random the parameters are, the more repeatable they are, whil
 6. **Click Save Settings. Very important! Don't forget！**
 
 ### Comment settings
+<img src="screenshot/encomment.png" alt="示例图片">
+
 1. Click the **Comment** button to enter the page
 2. I feel that there is nothing much to say about this page. In short, you can turn on/off the corresponding items by checking, and you can customize to add/delete blocked words and change the output format
 3. The corresponding parameter description is shown above. The parameters can be deleted in theory. That is to say, originally $USER said: $TEXT. You can delete $USER and only keep $TEXT, so that TTS will not read the audience name when outputting, but only read the content.
