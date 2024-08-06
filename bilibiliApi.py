@@ -4,8 +4,6 @@ import logging
 import asyncio
 from threading import Thread
 import pygame
-import os
-import json
 import re
 import queue
 import time
@@ -16,7 +14,6 @@ import soundfile as sf
 import concurrent.futures
 
 logging.basicConfig(level=logging.INFO)
-from api import handle
 from config import config
 from block_words_check import contains_block_words
 from inference_webui import get_tts_wav
@@ -153,7 +150,9 @@ class BilibiliApi(QObject):
         def run():
             self.loop = asyncio.new_event_loop()
             asyncio.set_event_loop(self.loop)
-
+            self.credential = Credential(sessdata=config.parameters["SESSDATA"],
+                                         bili_jct=config.parameters["bili_jct"],
+                                         buvid3=config.parameters["buvid3"])
             self.room = live.LiveDanmaku(room_id, credential=self.credential)
             logging.info("Room created and attempting to connect")
             self.connection_established.emit()
